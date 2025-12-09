@@ -4,7 +4,10 @@ from pygame.math import Vector2
 class SNAKE:
     def __init__(self):
         #initial snake body
-        
+        self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
+        self.direct = Vector2(1,0)
+        self.new_block = False
+
         
         #head graphics
         self.head_up = pygame.image.load('Graphics/snake_head_up.png').convert_alpha()
@@ -218,6 +221,9 @@ while True:
                 if main_game.snake.direct.x != -1:
                     main_game.snake.direct = Vector2(1,0)
             #left movement
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                if main_game.snake.direct.x != 1:
+                    main_game.snake.direct = Vector2(-1,0)
 
 
             if event.key == pygame.K_ESCAPE:
@@ -228,3 +234,13 @@ while True:
     main_game.draw_elements()
     pygame.display.update() 
     clock.tick(60)
+
+    pygame.init()
+    cell_size = 40
+    cell_number = 20
+    screen = pygame.display.set_mode((cell_size * cell_number, cell_size * cell_number))
+    pygame.display.set_caption('Snake Game')
+    clock = pygame.time.Clock()
+    apple = pygame.image.load('Graphics/apple.png').convert_alpha()
+    game_font = pygame.font.Font(None, 25)
+    
